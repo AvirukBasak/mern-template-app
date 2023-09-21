@@ -2,8 +2,8 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-process.__filename = fileURLToPath(import.meta.url);
-process.__dirname = path.dirname(__filename);
+global.__filename = fileURLToPath(import.meta.url);
+global.__dirname = path.dirname(__filename);
 
 const Paths = {
     build: path.join(__dirname, '..', 'static'),
