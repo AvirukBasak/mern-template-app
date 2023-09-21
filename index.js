@@ -1,9 +1,12 @@
 const { execSync } = require('child_process');
 const command = process.argv[2];
 
-function build() {
+function install() {
     execSync('npm install', { cwd: 'app', stdio: 'inherit' });
     execSync('npm install', { cwd: 'server', stdio: 'inherit' });
+}
+
+function build() {
     execSync('npm run build', { cwd: 'app', stdio: 'inherit' });
 }
 
@@ -17,11 +20,13 @@ function dev() {
 }
 
 switch (command) {
+    case 'install':
+        install();
+        break;
     case 'build':
         build();
         break;
     case 'start':
-        build();
         start();
         break;
     case 'dev':

@@ -20,9 +20,9 @@ MONGODB_URI='mongodb://0.0.0.0:27017'
 **Note**: Only use `0.0.0.0` for the IP address or MongoDB local server will refuse connections.
 
 ## Run App
-Run
-```
-npm start
-```
-
 You can customize your build script by modifying [`index.js`](index.js) at the repository root.
+
+You need to run the following based on your requirements:
+- `npm run install` install all dependencies
+- `npm run build` generate the `static` directory
+- `npm start` start the app
