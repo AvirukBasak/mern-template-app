@@ -1,4 +1,4 @@
-const { execSync } = require('child_process');
+import { execSync } from 'child_process';
 const command = process.argv[2];
 
 switch (command) {

@@ -1,18 +1,29 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
+// load the environment
 import path from 'path';
-import 'express-async-errors';
+import { fileURLToPath } from 'url';
 
-import api from './routes/api.mjs';
-import root from './routes/root.mjs';
-
-dotenv.config();
-dotenv.config({ path: '.env.local', override: true });
+process.__filename = fileURLToPath(import.meta.url);
+process.__dirname = path.dirname(__filename);
 
 const Paths = {
     build: path.join(__dirname, '..', 'static'),
 }
+
+import dotenv from 'dotenv';
+
+dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, './.env.local'), override: true });
+
+import env from './.env.local.json' assert { type: 'json' };
+process.env = { ...process.env, env };
+
+// express.js code from here
+
+import express from 'express';
+import cors from 'cors';
+import 'express-async-errors';
+
+import api from './routes/api.mjs';
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -22,7 +33,7 @@ app.use(express.json());
 
 // load routes
 app.use('/api', api);
-app.use('/', root);
+app.use('/', express.static(Paths.build));
 
 // global error handling
 app.use((err, _req, res, next) => {
@@ -30,8 +41,6 @@ app.use((err, _req, res, next) => {
     res.status(404).send('Not Found');
     res.status(500).send('Internal Server Error');
 });
-
-app.use(express.static(Paths.build));
 
 // start the Express server
 app.listen(PORT, () => {

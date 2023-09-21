@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 
-import clientPromise from '../lib/mongodb.mjs';
+// import clientPromise from '../lib/mongodb.mjs';
 import { ObjectId } from 'mongodb';
 
 const api = express.Router();
