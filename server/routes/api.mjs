@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 
-import clientPromise from '../lib/mongodb.mjs';
+import conn from '../lib/mongodb.mjs';
 import { ObjectId } from 'mongodb';
 
 const api = express.Router();
@@ -13,8 +13,7 @@ api.get('/', async (req, res) => {
 /* calling mongodb:
 
 async function makeDatabaseQuery() {
-    const client = await clientPromise;
-    const db = client.db('database');
+    const db = conn.db('database');
     try {
         const data = await db.collection('collection').findOne({});
     } catch (e) {

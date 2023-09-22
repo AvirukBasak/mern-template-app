@@ -24,5 +24,5 @@ app.use((err, _req, res, next) => {
 
 // start the Express server
 app.listen(PORT, () => {
-    console.log(`Server is running at: 'http://localhost:${PORT}'`);
+    console.log(`Server is running at 'http://localhost:${PORT}'`);
 });
