@@ -1,5 +1,4 @@
 import express from 'express';
-import path from 'path';
 
 import conn from '../lib/mongodb.mjs';
 import { ObjectId } from 'mongodb';
@@ -10,17 +9,19 @@ api.get('/', async (req, res) => {
     res.send({ status: 400, message: 'No API here at /api' }).status(400);
 });
 
-/* calling mongodb:
-
 async function makeDatabaseQuery() {
-    const db = conn.db('database');
+    const db = conn.db('demo');
     try {
-        const data = await db.collection('collection').findOne({});
+        const data = db.collection('demo').find().toArray();
+        return data;
     } catch (e) {
         console.error(e);
     }
+    return null;
 }
 
-*/
+api.get('/xyz', async (req, res) => {
+    res.json(await makeDatabaseQuery());
+});
 
 export default api;
