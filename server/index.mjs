@@ -11,14 +11,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use(function(req, res, next) {
+    console.log(`[${(new Date()).toLocaleString()}] ${req.ip} ${req.method} ${req.url}`);
+    next();
+});
+
 // load routes
 app.use('/api', api);
 app.use('/', express.static(PATHS.build));
 
 // global error handling
 app.use((err, _req, res, next) => {
-    res.status(403).send('Forbidden');
-    res.status(404).send('Not Found');
     res.status(500).send('Internal Server Error');
 });
 
