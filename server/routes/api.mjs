@@ -4,24 +4,15 @@ import conn from '../lib/mongodb.mjs';
 import { ObjectId } from 'mongodb';
 
 const api = express.Router();
+const db = conn.db(process.env.DATABASE_NAME);
 
 api.get('/', async (req, res) => {
-    res.send({ status: 400, message: 'No API here at /api' }).status(400);
+    res.status(400).json({ message: 'No API here at /api' }).end();
 });
 
-async function makeDatabaseQuery() {
-    const db = conn.db('demo');
-    try {
-        const data = db.collection('demo').find().toArray();
-        return data;
-    } catch (e) {
-        console.error(e);
-    }
-    return null;
-}
-
 api.get('/xyz', async (req, res) => {
-    res.json(await makeDatabaseQuery());
+    const data = await db.collection('demo').find().toArray();
+    res.status(200).json(data).end();
 });
 
 export default api;

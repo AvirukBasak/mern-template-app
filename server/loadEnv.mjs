@@ -24,3 +24,11 @@ if (!process.env.MONGODB_URI) {
     );
     process.exit(1);
 }
+
+if (!process.env.DATABASE_NAME) {
+    console.error('ERROR: '
+        + 'couldn\'t find DATABASE_NAME enviroment variable\n'
+        + `  add DATABASE_NAME to '${path.join(__dirname, '.env.local')}'`
+    );
+    process.exit(1);
+}
